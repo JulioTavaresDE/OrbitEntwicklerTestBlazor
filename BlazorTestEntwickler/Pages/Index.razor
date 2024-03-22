@@ -1,0 +1,53 @@
+﻿@page "/"
+
+<h3>TextParser</h3>
+<hr />
+
+<div style="border:solid">
+    <br />
+    <div class="row" >
+        <div class="col-sm-4">
+           Text to parser: <input @bind-value="strEingabe" />
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-sm-2">
+                 <button @onclick="MarkdownParser" class="btn btn-primary ">Senden</button>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div class="col-sm-4">
+            Parsed text: 
+            <input @bind-value="strEingabe" />
+        </div>
+    </div>
+</div>
+
+@code{
+    private string strEingabe, strAusgabe;
+
+    private void MarkdownParser()
+    {
+        char[] leerZeichenChar = { ' ' };
+        string retEingabe = strEingabe.TrimEnd(leerZeichenChar).TrimStart();
+
+        int countHasches = retEingabe.ToString().Count(x => x == '#');
+        int countLeerzeichen = retEingabe.ToString().Count(x => x == ' ');
+        string ret = string.Empty;
+        string retAusgabe = string.Empty;
+
+        if(countHasches >=1 && countHasches <= 6)
+            strAusgabe = $"<h{countHasches}>{strEingabe}</h{countHasches}> ";
+        else
+            strAusgabe = $"{strEingabe}";
+    }
+}
+
+
+
+
+
